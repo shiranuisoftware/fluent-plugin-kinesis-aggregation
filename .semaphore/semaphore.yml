@@ -1,0 +1,18 @@
+version: v1.0
+name: CI
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2404
+blocks:
+  - name: "Test"
+    task:
+      jobs:
+        - name: Test
+          commands:
+            - checkout
+            - sem-version ruby 2.7.8
+            - cache restore
+            - bundle install
+            - cache store
+            - bundle exec rake
